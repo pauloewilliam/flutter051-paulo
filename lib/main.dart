@@ -32,10 +32,12 @@ class _AgendamentoEventoTelaState extends State<AgendamentoEventoTela> {
   static final DateTime _dataPadrao = DateTime.now();
   static const TimeOfDay _horarioPadrao = TimeOfDay(hour: 19, minute: 0);
   static const String _tipoPadrao = 'Aniversário';
+  static const double _convidadosPadrao = 50.0;
 
   late DateTime _dataSelecionada;
   late TimeOfDay _horarioSelecionado;
   late String _tipoEventoSelecionado;
+  late double _quantidadeConvidados;
 
   @override
   void initState() {
@@ -48,6 +50,7 @@ class _AgendamentoEventoTelaState extends State<AgendamentoEventoTela> {
       _dataSelecionada = _dataPadrao;
       _horarioSelecionado = _horarioPadrao;
       _tipoEventoSelecionado = _tipoPadrao;
+      _quantidadeConvidados = _convidadosPadrao;
     });
     print('[DEBUG] Formulario resetado para os valores padrao.');
   }
@@ -61,6 +64,7 @@ class _AgendamentoEventoTelaState extends State<AgendamentoEventoTela> {
     );
     print('Horário: ${_horarioSelecionado.format(context)}');
     print('Tipo de Evento: $_tipoEventoSelecionado');
+    print('Estimativa de Convidados: ${_quantidadeConvidados.round()}');
     print('=====================================');
 
     ScaffoldMessenger.of(context).showSnackBar(
@@ -156,19 +160,19 @@ class _AgendamentoEventoTelaState extends State<AgendamentoEventoTela> {
               ),
               items: ['Aniversário', 'Casamento', 'Corporativo', 'Outro']
                   .map(
-                    (tipo) => DropdownMenuItem(value: tipo ,child: Text(tipo)),
+                    (tipo) => DropdownMenuItem(value: tipo, child: Text(tipo)),
                   )
                   .toList(),
-                onChanged: (novoValor) {
-                  if (novoValor != null) {
-                    setState(() {
-                      _tipoEventoSelecionado = novoValor;
-                    });
-                    print(
-                      '[DEBUG - Menu] Tipo de evento selecionado: $novoValor',
-                    );
-                  }
-                },
+              onChanged: (novoValor) {
+                if (novoValor != null) {
+                  setState(() {
+                    _tipoEventoSelecionado = novoValor;
+                  });
+                  print(
+                    '[DEBUG - Menu] Tipo de evento selecionado: $novoValor',
+                  );
+                }
+              },
             ),
             const Divider(height: 32),
           ],
