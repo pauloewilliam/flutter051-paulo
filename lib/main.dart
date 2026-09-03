@@ -10,10 +10,10 @@ class MeuApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Agendamento de Evento',
+      title: "Agendamento de Evento",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: (Colors.deepPurple)),
         useMaterial3: true,
       ),
       home: const AgendamentoEventoTela(),
@@ -56,20 +56,20 @@ class _AgendamentoEventoTelaState extends State<AgendamentoEventoTela> {
   }
 
   void _salvarFormulario() {
-    print('=====================================');
-    print('       RESUMO DO AGENDAMENTO       ');
-    print('=====================================');
+    print('=============================');
+    print('    Resumo do Agendamento    ');
+    print('=============================');
     print(
       'Data: ${_dataSelecionada.day}/${_dataSelecionada.month}/${_dataSelecionada.year}',
     );
     print('Horário: ${_horarioSelecionado.format(context)}');
     print('Tipo de Evento: $_tipoEventoSelecionado');
     print('Estimativa de Convidados: ${_quantidadeConvidados.round()}');
-    print('=====================================');
+    print('=============================');
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('Evento salvo com sucesso! Veja os logs no console.'),
+        content: Text('Evento salvo com sucesso! Veja os logs no console. '),
       ),
     );
   }
@@ -172,6 +172,36 @@ class _AgendamentoEventoTelaState extends State<AgendamentoEventoTela> {
                     '[DEBUG - Menu] Tipo de evento selecionado: $novoValor',
                   );
                 }
+              },
+            ),
+            const Divider(height: 32),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Quantidade de Convidados',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                Text(
+                  '${_quantidadeConvidados.round()} pessoas',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            Slider(
+              value: _quantidadeConvidados,
+              min: 10,
+              max: 500,
+              divisions: 49,
+              label: _quantidadeConvidados.round().toString(),
+              onChanged: (novoValor) {
+                setState(() {
+                  _quantidadeConvidados = novoValor;
+                });
+                print(
+                  '[DEBUG - Slider] Quantidade de convidados: ${novoValor.round()}',
+                );
               },
             ),
             const Divider(height: 32),
